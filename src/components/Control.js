@@ -1,7 +1,9 @@
-import React from "react";
-import { Classes, Icon, Menu, MenuItem, MenuDivider } from "@blueprintjs/core";
+import React, { useState } from "react";
+import { Classes, Position, Icon, Menu, MenuItem, MenuDivider, Tooltip } from "@blueprintjs/core";
 
 export default function Control(props) {
+  const [muted, setMuted] = useState(false);
+
   const { connected, log, logCall, callState, setCallState } = props;
 
   const { ringing, onCall, callerID, connection } = callState;
@@ -32,6 +34,14 @@ export default function Control(props) {
     });
   }
 
+  function toggleMute() {
+    if (callState.onCall) {
+      let muteStatus = connection.isMuted();
+      setMuted(!muteStatus);
+      connection.mute(!muteStatus);
+    }
+  }
+
   return (
     <div id="menu">
       <strong>Twilio Agent Demo</strong>
@@ -50,15 +60,18 @@ export default function Control(props) {
             onClick={handleAction}
           />
         ) : (
-          <MenuDivider title="No Calls" />
+          <MenuDivider title="No Active Calls" />
         )}
 
         {ringing && <MenuItem className={Classes.INTENT_DANGER} icon="phone" text="Reject Call" onClick={handleReject} />}
 
         {callerID && (
+          // On Call Controls
           <>
             <MenuDivider />
-            <MenuItem text={callerID} />
+            <Tooltip content={`Click here to ${muted ? "unmute" : "mute"} call.`} position={Position.BOTTOM}>
+              <MenuItem className={muted && Classes.INTENT_WARNING} text={callerID} icon={muted ? "volume-off" : "volume-up"} onClick={toggleMute} />
+            </Tooltip>
           </>
         )}
       </Menu>

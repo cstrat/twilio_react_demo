@@ -31,7 +31,7 @@ export default function setupDevice({ device, setConnected, log, logCall, callSt
   // Disconnected call
   device.on("disconnect", conn => {
     log("❌ Call Disconnected.");
-    logCall(callState.From, "Call Completed");
+    logCall(callState.callerID, "Call Completed");
     setCallState({
       ringing: false,
       onCall: false,
@@ -43,7 +43,7 @@ export default function setupDevice({ device, setConnected, log, logCall, callSt
   // Cancelled Call
   device.on("cancel", conn => {
     log("❌ Caller Hung Up.");
-    logCall(callState.From, "Call Abandoned");
+    logCall(callState.callerID, "Call Abandoned");
     setCallState({
       ringing: false,
       onCall: false,
