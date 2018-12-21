@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/twilio_react_demo/precache-manifest.cff9b285d664e031651f956f4aadb93a.js"
+  "/twilio_react_demo/precache-manifest.14d0459c4fbdd3c8baaa085d01411910.js"
 );
 
 workbox.clientsClaim();
