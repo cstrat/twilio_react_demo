@@ -22,7 +22,7 @@ export default function App() {
   // Application State
   const [connected, setConnected] = useState(false);
   const [activity, setActivity] = useState([]);
-  const [callLog, setCallLog] = useState([]);
+  const [refreshToken, setRefresh] = useState([]);
   const [callState, setCallState] = useState({
     ringing: false,
     onCall: false,
@@ -36,16 +36,6 @@ export default function App() {
     setActivity(activity);
   }
 
-  // Helper Function To Log Calls
-  function logCall(callFrom, callStatus) {
-    let callEntry = {
-      date: new Date(),
-      from: callFrom,
-      status: callStatus
-    };
-    setCallLog([...callLog, callEntry]);
-  }
-
   // Client Device Object
   // eslint-disable-next-line no-undef
   const device = new Twilio.Device();
@@ -56,17 +46,17 @@ export default function App() {
     log,
     callState,
     setCallState,
-    logCall
+    setRefresh
   });
 
-  // App
+  // App Component
   return (
     <>
       <Connect connected={connected} setConnected={setConnected} device={device} log={log} />
       <div id="frame">
-        <Control connected={connected} device={device} log={log} logCall={logCall} callState={callState} setCallState={setCallState} />
+        <Control connected={connected} device={device} log={log} callState={callState} setCallState={setCallState} setRefresh={setRefresh} />
         <Activity feed={activity} />
-        {connected && <CallLog log={callLog} />}
+        {connected && <CallLog refreshToken={refreshToken} />}
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { Classes, Position, Icon, Menu, MenuItem, MenuDivider, Tooltip } from "@
 export default function Control(props) {
   const [muted, setMuted] = useState(false);
 
-  const { connected, log, logCall, callState, setCallState } = props;
+  const { connected, log, callState, setCallState, setRefresh } = props;
 
   const { ringing, onCall, callerID, connection } = callState;
 
@@ -24,7 +24,7 @@ export default function Control(props) {
 
   function handleReject() {
     log("❌ Call Rejected.");
-    logCall(callState.From, "Call Rejected");
+    setRefresh(Math.random());
     connection.reject();
     setCallState({
       ringing: false,

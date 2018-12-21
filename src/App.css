@@ -5,18 +5,21 @@ body {
 }
 
 #frame {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
 }
 
 #menu {
-  width: 150px;
+  width: 200px;
   margin: 0 1rem 0 0.5rem;
 }
 
 #activityLog {
+  color: #666;
   font-family: "Courier New", Courier, monospace;
+  text-align: right;
+  list-style: none;
 }
 
 #callLog {
@@ -31,6 +34,14 @@ body {
 #callLog u {
   color: #000;
   cursor: pointer;
+}
+
+#callLog .error {
+  color: #f00;
+}
+
+#callLog .complete {
+  color: #494;
 }
 
 #actionMenu {

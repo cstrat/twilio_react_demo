@@ -1,4 +1,4 @@
-export default function setupDevice({ device, setConnected, log, logCall, callState, setCallState }) {
+export default function setupDevice({ device, setConnected, log, setRefresh, setCallState }) {
   // Events are logged
   device.on("ready", () => {
     setConnected(true);
@@ -31,7 +31,7 @@ export default function setupDevice({ device, setConnected, log, logCall, callSt
   // Disconnected call
   device.on("disconnect", conn => {
     log("❌ Call Disconnected.");
-    logCall(callState.callerID, "Call Completed");
+    setRefresh(Math.random());
     setCallState({
       ringing: false,
       onCall: false,
@@ -43,7 +43,7 @@ export default function setupDevice({ device, setConnected, log, logCall, callSt
   // Cancelled Call
   device.on("cancel", conn => {
     log("❌ Caller Hung Up.");
-    logCall(callState.callerID, "Call Abandoned");
+    setRefresh(Math.random());
     setCallState({
       ringing: false,
       onCall: false,
